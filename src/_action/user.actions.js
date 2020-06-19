@@ -5,6 +5,7 @@ import {history, getAuthorizationUrl} from '../_helper';
 
 export const userActions = {
     oauth,
+    request,
     login,
     logout,
     register,
@@ -15,17 +16,23 @@ export const userActions = {
 function oauth() {
     return dispatch => {
         dispatch(request('GitHub OAuth' ));
-        alert(getAuthorizationUrl());
         window.location.replace(getAuthorizationUrl())
     };
     function request(user) { return { type: userConstants.LOGIN_REQUEST, user } }
 }
 
-function login(username, password) {
+function request() {
     return dispatch => {
-        dispatch(request({ username }));
+        dispatch(request('GitHub OAuth' ));
+    };
+    function request(user) { return { type: userConstants.LOGIN_REQUEST, user } }
+}
 
-        userService.login(username, password)
+function login(code, state) {
+    return dispatch => {
+        dispatch(request("github"));
+
+        userService.login(code, state)
             .then(
                 user => { 
                     dispatch(success(user));

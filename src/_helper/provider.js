@@ -21,6 +21,7 @@ function uuid() {
 }
 
 function buildAuthorizeUrl() {
+    localStorage.setItem("state", state);
     return github_org + '/login/oauth/authorize?' +
       'client_id=' + client_id + '&' +
       'scope=' + scopes + '&' +

@@ -10,6 +10,7 @@ import About from './About';
 import { PrivateRoute } from './_component';
 import { HomePage } from './HomePage';
 import { LoginPage } from './LoginPage';
+import { RedirectPage } from './RedirectPage';
 import { RegisterPage } from './RegisterPage';
 
 const {
@@ -44,6 +45,7 @@ class App extends React.Component {
               <Route path="/login" component={LoginPage} />
               <Route path="/register" component={RegisterPage} />
               <Route path="/home" component={HomePage} />
+              <Route path="/oauth/redirect" component={RedirectPage} />
               <Redirect from="*" to="/" />
             </Switch>
           </React.Fragment>
