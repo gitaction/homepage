@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
+import { Router, Switch, Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { history } from './_helper';
@@ -36,7 +36,7 @@ class App extends React.Component {
     return (
       <div className="">
         {alert.message && <div className={`alert ${alert.type}`}>{alert.message}</div>}
-        <BrowserRouter>
+        <Router history={history}>
           <React.Fragment>
             <AppHeader/>
             <Switch>
@@ -49,7 +49,7 @@ class App extends React.Component {
               <Redirect from="*" to="/" />
             </Switch>
           </React.Fragment>
-        </BrowserRouter>
+        </Router>
       </div>
     );
   }

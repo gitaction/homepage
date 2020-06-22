@@ -4,6 +4,9 @@ class MicroFrontend extends React.Component {
   componentDidMount() {
     const { name, host, document } = this.props;
     const scriptId = `micro-frontend-script-${name}`;
+    
+    console.log("-----???");
+    console.log(scriptId);
 
     if (document.getElementById(scriptId)) {
       this.renderMicroFrontend();

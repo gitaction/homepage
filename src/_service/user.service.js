@@ -8,6 +8,7 @@ const {
 } = process.env;
 
 export const userService = {
+    
     login,
     logout,
     register,
@@ -26,38 +27,23 @@ function login(username, password) {
         state: password
     };
 
-    let headers = new Headers();
+    let myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
 
-    headers.append('Content-Type', 'application/json;charset=UTF-8');
-    
-    const requestOptions = {
+    let requestOptions = {
         method: 'POST',
-        headers: headers,
-        mode:'cors',
-        body: JSON.stringify(form)
+        headers: myHeaders,
+        body: JSON.stringify(form),
+        redirect: 'follow'
     };
-    
-    // (async () => {
-    //     const rawResponse = await fetch('https://github.com/login/oauth/access_token', {
-    //         method: 'POST',
-    //         headers: headers,
-    //         mode:'no-cors',
-    //         credentials: 'include',
-    //         body: JSON.stringify(form)
-    //     });
-    //     const content = await rawResponse.json();
-    //
-    //     console.log(content);
-    // })();
 
-    return fetch(`${github_org}/login/oauth/access_token`, requestOptions)
-        .then(handleResponse)
-        .then(user => {
-            // store user details and jwt token in local storage to keep user logged in between page refreshes
-            localStorage.setItem('user', JSON.stringify(user));
-
-            return user;
-        });
+    return fetch("https://us-central1-gitaction.cloudfunctions.net/oauthToken", requestOptions)
+      .then(handleResponse)
+      .then(user => {
+          localStorage.setItem('user', JSON.stringify(user));
+          return user;
+      })
+      .catch(error => console.log('error', error));
 }
 
 function logout() {
@@ -114,13 +100,10 @@ function _delete(id) {
 }
 
 function handleResponse(response) {
-    console.log("---");
-    console.log(response);
-    return response.text().then(text => {
-        const data = text && JSON.parse(text);
+    return response.json().then(json => {
+        const data = json;
         if (!response.ok) {
             if (response.status === 401) {
-                // auto logout if 401 response returned from api
                 logout();
                 window.location.reload(true);
             }
@@ -128,7 +111,6 @@ function handleResponse(response) {
             const error = (data && data.message) || response.statusText;
             return Promise.reject(error);
         }
-
         return data;
     });
 }
