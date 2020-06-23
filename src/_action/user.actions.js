@@ -30,19 +30,28 @@ function request() {
 
 function login(code, state) {
     return dispatch => {
-        dispatch(request("github"));
+        dispatch(request("github login"));
 
-        userService.login(code, state)
-            .then(
-                user => { 
-                    dispatch(success(user));
-                    history.push('/');
-                },
-                error => {
-                    dispatch(failure(error.toString()));
-                    dispatch(alertActions.error(error.toString()));
-                }
-            );
+        userService.token(code, state)
+          .then(
+            token => {
+                userService.login(token)
+                  .then(
+                    user => {
+                        dispatch(success(user));
+                        history.push('/');
+                    },
+                    error => {
+                        dispatch(failure(error.toString()));
+                        dispatch(alertActions.error(error.toString()));
+                    }
+                  );
+            },
+            error => {
+                dispatch(failure(error.toString()));
+                dispatch(alertActions.error(error.toString()));
+            }
+          );
     };
 
     function request(user) { return { type: userConstants.LOGIN_REQUEST, user } }
