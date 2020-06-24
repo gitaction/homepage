@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { history } from './_helper';
 import { alertActions } from './_action';
 import AppHeader from './AppHeader';
+import './App.css';
 import MicroFrontend from './MicroFrontend';
 import About from './About';
 import { PrivateRoute } from './_component';
@@ -34,11 +35,9 @@ class App extends React.Component {
   render() {
     const {alert} = this.props;
     return (
-      <div className="">
+      <div className="app">
         {alert.message && <div className={`alert ${alert.type}`}>{alert.message}</div>}
         <BrowserRouter>
-          <React.Fragment>
-            <AppHeader/>
             <Switch>
               <PrivateRoute exact path="/" component={Component}/>
               <Route exact path="/about" render={About}/>
@@ -48,7 +47,6 @@ class App extends React.Component {
               <Route path="/oauth/redirect" component={RedirectPage} />
               <Redirect from="*" to="/" />
             </Switch>
-          </React.Fragment>
         </BrowserRouter>
       </div>
     );
