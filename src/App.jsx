@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 import { history } from './_helper';
 import { alertActions } from './_action';
+import { Admin } from './_layout';
 import AppHeader from './AppHeader';
 import './App.css';
 import MicroFrontend from './MicroFrontend';
@@ -39,12 +40,11 @@ class App extends React.Component {
         {alert.message && <div className={`alert ${alert.type}`}>{alert.message}</div>}
         <BrowserRouter>
             <Switch>
-              <PrivateRoute exact path="/" component={Component}/>
-              <Route exact path="/about" render={About}/>
+              <PrivateRoute exact path="/abc" component={Component}/>
+              <PrivateRoute path="/admin" component={Admin}/>
               <Route path="/login" component={LoginPage} />
-              <Route path="/register" component={RegisterPage} />
-              <Route path="/home" component={HomePage} />
               <Route path="/oauth/redirect" component={RedirectPage} />
+              <Redirect from="/" to="/admin/dashboard" />
               <Redirect from="*" to="/" />
             </Switch>
         </BrowserRouter>
