@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { userActions } from '../_action';
+import { SimpleHeader, SimpleFooter } from '../_component';
 
 class LoginPage extends React.Component {
     constructor(props) {
@@ -25,18 +26,7 @@ class LoginPage extends React.Component {
         const { loggingIn } = this.props;
         return (
           <div className="logged-out env-production page-responsive session-authentication height-100">
-              <div className="position-relative js-header-wrapper ">
-                  <div className="header header-logged-out width-full pt-5 pb-4" role="banner">
-                      <div className="container clearfix width-full text-center">
-                          <div className="CircleBadge CircleBadge--medium mx-auto icon-circle-badge-bg">
-                              <a className="header-logo" href="https://gitaction.com/">
-                              <img className="CircleBadge-icon" alt="GitAction dev logo" width="100" height="100"
-                                   src="https://avatars2.githubusercontent.com/oa/1315854?s=120&amp;u=bcfcbc764c1cd783c18a6dbebc6c3fcfd0c80db4&amp;v=4" />
-                              </a>
-                          </div>
-                      </div>
-                  </div>
-              </div>
+              <SimpleHeader/>
 
               <div className="application-main " data-commit-hovercards-enabled="" data-discussion-hovercards-enabled=""
                    data-issue-and-pr-hovercards-enabled="">
@@ -68,12 +58,7 @@ class LoginPage extends React.Component {
                   </main>
               </div>
 
-              <div className="footer container-lg p-responsive py-6 mt-6 f6" role="contentinfo">
-                  <ul className="list-style-none d-flex flex-justify-center">
-                      <li><a className="link-gray" data-ga-click="Footer, go to contact, text:contact"
-                             href="https://github.com/contact">Contact GitAction</a></li>
-                  </ul>
-              </div>
+              <SimpleFooter/>
           </div>
         );
     }
