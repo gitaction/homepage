@@ -1,8 +1,7 @@
 import React from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
+import { NavBar } from "../_component"
 import routes from "../routes.js";
-
-let ps;
 
 const switchRoutes = (
   <Switch>
@@ -24,7 +23,8 @@ const switchRoutes = (
 
 export function Admin({ ...rest }) {
   return (
-    <div>
+    <div className="logged-in env-production page-responsive page-profile mine">
+      <NavBar/>
       <div>{switchRoutes}</div>
     </div>
   );

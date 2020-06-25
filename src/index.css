@@ -14,3 +14,12 @@ div#root {
 .icon-circle-badge-bg {
   background-color: #000;
 }
+
+.hidden {
+  display: none!important;
+}
+
+.hidden-space {
+  display: inline;
+  visibility: hidden;
+}
